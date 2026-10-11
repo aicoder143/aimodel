@@ -1177,6 +1177,15 @@ button {
   gap: 5px;
 }
 
+.prompt-head #copy-json {
+  width: auto;
+  min-width: 88px;
+  padding: 0 10px;
+  color: #4b3c32;
+  font: 600 12px Arial, sans-serif;
+  cursor: pointer;
+}
+
 .json-box textarea {
   display: block;
   width: 100%;

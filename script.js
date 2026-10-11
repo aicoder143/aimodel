@@ -740,7 +740,7 @@ function startStudio() {
     });
     byId('cancel-json').addEventListener('click', () => { state.jsonEditing = false; byId('json-preview').hidden = false; byId('json-editor').hidden = true; byId('json-edit-actions').hidden = true; renderRecipe(); });
     byId('apply-json').addEventListener('click', applyJson);
-    byId('copy-json').addEventListener('click', async () => { try { await navigator.clipboard.writeText(JSON.stringify(currentRecipe(), null, 2)); byId('copy-json').textContent = '✓'; setTimeout(() => byId('copy-json').textContent = '▣', 2000); } catch { showError('Could not copy the JSON.'); } });
+    byId('copy-json').addEventListener('click', async () => { try { await navigator.clipboard.writeText(JSON.stringify(currentRecipe(), null, 2)); byId('copy-json').textContent = 'Copied!'; setTimeout(() => byId('copy-json').textContent = 'Copy JSON', 2000); } catch { showError('Could not copy the JSON.'); } });
     byId('download-json').addEventListener('click', () => {
         const url = URL.createObjectURL(new Blob([JSON.stringify(currentRecipe(), null, 2)], { type: 'application/json' }));
         downloadFile(url, `atelier-prompt-v${currentRecipe().version}.json`);
