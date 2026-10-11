@@ -1,4 +1,4 @@
-# Atelier AI Fashion Studio — readable web edition
+# Femamodel AI Fashion Studio — readable web edition
 
 This folder contains a plain HTML/CSS/JavaScript edition of the current site. `index.html` is the page structure, `style.css` is the complete stylesheet, and `script.js` contains the catalogs, browser interactions, history storage, JSON editing, and image request. All three files are readable source, not minified bundles.
 

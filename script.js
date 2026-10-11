@@ -732,7 +732,7 @@ function startStudio() {
     byId('generate-button').addEventListener('click', generate);
     byId('save-json').addEventListener('click', savePrompt);
     byId('dont-save').addEventListener('click', () => { byId('save-bar').hidden = true; });
-    byId('download-image').addEventListener('click', () => { if (state.selected?.image) downloadFile(state.selected.image, `atelier-version-${state.selected.recipe.version}.png`); });
+    byId('download-image').addEventListener('click', () => { if (state.selected?.image) downloadFile(state.selected.image, `femamodel-version-${state.selected.recipe.version}.png`); });
     byId('start-over').addEventListener('click', () => { state.selected = null; state.note = ''; sync(); });
     byId('edit-json').addEventListener('click', () => {
         byId('json-editor').value = JSON.stringify(currentRecipe(), null, 2);
@@ -743,7 +743,7 @@ function startStudio() {
     byId('copy-json').addEventListener('click', async () => { try { await navigator.clipboard.writeText(JSON.stringify(currentRecipe(), null, 2)); byId('copy-json').textContent = 'Copied!'; setTimeout(() => byId('copy-json').textContent = 'Copy JSON', 2000); } catch { showError('Could not copy the JSON.'); } });
     byId('download-json').addEventListener('click', () => {
         const url = URL.createObjectURL(new Blob([JSON.stringify(currentRecipe(), null, 2)], { type: 'application/json' }));
-        downloadFile(url, `atelier-prompt-v${currentRecipe().version}.json`);
+        downloadFile(url, `femamodel-prompt-v${currentRecipe().version}.json`);
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
     sync();

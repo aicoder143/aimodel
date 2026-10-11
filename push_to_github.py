@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Push this Atelier source folder to an empty GitHub repository and enable Pages.
+"""Push this Femamodel source folder to a GitHub repository and enable Pages.
 
 Run from this directory:
     python3 push_to_github.py
@@ -165,7 +165,7 @@ def main() -> int:
         run("git", "add", "--", *PUBLISH_FILES)
         staged = run("git", "diff", "--cached", "--quiet", check=False)
         if staged.returncode == 1:
-            run("git", "commit", "-m", "Publish Atelier AI Fashion Studio source")
+            run("git", "commit", "-m", "Publish Femamodel AI Fashion Studio source")
         elif staged.returncode != 0:
             raise RuntimeError("Could not inspect staged files.")
         incorporate_remote_starter(repo)

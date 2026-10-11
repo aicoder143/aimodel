@@ -1,13 +1,13 @@
 {
   "id": "./",
-  "name": "Atelier AI Fashion Studio",
-  "short_name": "Atelier",
+  "name": "Femamodel AI Fashion Studio",
+  "short_name": "Femamodel",
   "description": "Create and refine editorial fashion portraits.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#fbfaf7",
-  "theme_color": "#2b2a27",
+  "background_color": "#fff7fb",
+  "theme_color": "#d60078",
   "icons": [
     { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
