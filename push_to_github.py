@@ -93,6 +93,29 @@ def ensure_clean_target(remote_url: str) -> None:
         run("git", "remote", "add", "origin", remote_url)
 
 
+def incorporate_remote_starter(repo: str) -> None:
+    """Merge a GitHub-generated one-line README; leave other remote work untouched."""
+    fetched = run("git", "fetch", "origin", "main", check=False)
+    if fetched.returncode:
+        detail = fetched.stderr.strip() or fetched.stdout.strip()
+        if "couldn't find remote ref main" in detail:
+            return  # Newly created repository with no commits yet.
+        raise RuntimeError(f"Could not fetch GitHub's main branch: {detail}")
+    if run("git", "merge-base", "--is-ancestor", "origin/main", "HEAD", check=False).returncode == 0:
+        return
+    names = run("git", "ls-tree", "-r", "--name-only", "origin/main").stdout.splitlines()
+    starter_readme = run("git", "show", "origin/main:README.md", check=False)
+    if names != ["README.md"] or starter_readme.returncode or starter_readme.stdout.strip() != f"# {repo}":
+        raise RuntimeError(
+            "The GitHub repository contains work beyond its generated README. "
+            "No files were overwritten; merge those changes manually before pushing."
+        )
+    merged = run("git", "merge", "--no-edit", "--allow-unrelated-histories", "-X", "ours", "origin/main", check=False)
+    if merged.returncode:
+        run("git", "merge", "--abort", check=False)
+        raise RuntimeError("Could not merge GitHub's starter README. Resolve the remote history before pushing.")
+
+
 def enable_pages(owner: str, repo: str) -> str | None:
     if not shutil.which("gh"):
         return None
@@ -145,6 +168,7 @@ def main() -> int:
             run("git", "commit", "-m", "Publish Atelier AI Fashion Studio source")
         elif staged.returncode != 0:
             raise RuntimeError("Could not inspect staged files.")
+        incorporate_remote_starter(repo)
         run("git", "push", "-u", "origin", "main")
         print("Code pushed successfully.")
         enabled = enable_pages(owner, repo)
